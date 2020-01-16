@@ -34,12 +34,3 @@ steps:
 - id: "Pushing image PHP 7.4"
   name: 'gcr.io/cloud-builders/docker'
   args: ['push','gcr.io/$PROJECT_ID/php-fpm-7.4:latest']
-
-
-- id: "Building image from Dockerfile HPA"
-  name: 'gcr.io/cloud-builders/docker'
-  args: ['build','-t','gcr.io/$PROJECT_ID/php-apache-hpa:latest','-f','php-apache-hpa/Dockerfile','.']
-
-- id: "Pushing image HPA"
-  name: 'gcr.io/cloud-builders/docker'
-  args: ['push','gcr.io/$PROJECT_ID/php-apache-hpa:latest']
