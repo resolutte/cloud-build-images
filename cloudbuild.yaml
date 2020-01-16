@@ -16,3 +16,21 @@ steps:
 - id: "Pushing image"
   name: 'gcr.io/cloud-builders/docker'
   args: ['push','resolutte/php-fpm-7.2']
+
+
+- id: "Building image from Dockerfile PHP 7.3"
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['build','-t','gcr.io/$PROJECT_ID/php-fpm-7.3','-f','php-fpm-7.2/Dockerfile','.']
+
+- id: "Pushing image"
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['push','resolutte/php-fpm-7.3']
+
+
+- id: "Building image from Dockerfile PHP 7.4"
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['build','-t','gcr.io/$PROJECT_ID/php-fpm-7.4','-f','php-fpm-7.2/Dockerfile','.']
+
+- id: "Pushing image"
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['push','resolutte/php-fpm-7.4']
