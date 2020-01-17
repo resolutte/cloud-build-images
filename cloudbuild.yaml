@@ -1,27 +1,21 @@
 steps:
 
-#- name: "gcr.io/cloud-builders/gcloud"
-#  args:
-#    - "kms"
-#    - "decrypt"
-#    - "--ciphertext-file=secrets.enc"
-#    - "--plaintext-file=/enc/secrets"
-#    - "--location=global"
-#    - "--keyring=Resolutte"
-#    - "--key=docker-hub"
-#  volumes:
-#    - name: 'enc'
-#      path: '/enc'
+- name: "gcr.io/cloud-builders/gcloud"
+  args:
+    - "kms"
+    - "decrypt"
+    - "--ciphertext-file=secrets.enc"
+    - "--plaintext-file=secrets.env"
+    - "--location=global"
+    - "--keyring=Resolutte"
+    - "--key=docker-hub"
 
 # Login to provide credentials for the push.
 - name: "gcr.io/cloud-builders/docker"
-  entrypoint: "bash"
-  #args: ["docker login --username resolutte --password-stdin < /enc/secrets https://registry-1.docker.io"]
-  args: ['docker login --username=resolutte --password=$$PASSWORD https://registry-1.docker.io']
+  entrypoint: 'bash'
+  #args: ['-c','docker login --username resolutte --password-stdin < secrets.env']
+  args: ['-c','echo $$PASSWORD','docker login --username=resolutte --password-stdin']
   secretEnv: ["PASSWORD"]
-#  volumes:
-#    - name: 'enc'
-#      path: '/enc'
 
 # Build the image.
 - name: 'gcr.io/cloud-builders/docker'
@@ -105,4 +99,4 @@ steps:
 secrets:
   - kmsKeyName: 'projects/resolutte-264622/locations/global/keyRings/Resolutte/cryptoKeys/docker-hub'
     secretEnv:
-      PASSWORD: CiQAdXh3aKdd1NsLONJFjz9fv3exCLmbm03k984tS2xCS0gSqHESPQDhENgDjOVi42SXgNBjReCs8f0TMHF+fTwJsGrub/FqZAQCyzViraoNilJcEHdRLRvsBX3hYeTqaScTW6k=
+      PASSWORD: 'CiQAdXh3aOtPQ89eGQzHVg83jJ7r9Zi349FMIE85FJ+gQgjGWBYSPQDhENgDQv4NrThQMDWFP9VKteKvmqMiIDHzqvAqxvLBtoOhnPrGbU94Ka3hYKEuAxn+cKZOM5kL1TFM2Ko='
