@@ -1,19 +1,23 @@
 steps:
 
-- name: "gcr.io/cloud-builders/gcloud"
-  args:
-    - "kms"
-    - "decrypt"
-    - "--ciphertext-file=secrets.enc"
-    - "--plaintext-file=secrets.env"
-    - "--location=global"
-    - "--keyring=Resolutte"
-    - "--key=docker-hub"
+#- name: "gcr.io/cloud-builders/gcloud"
+#  args:
+#    - "kms"
+#    - "decrypt"
+#    - "--ciphertext-file=secrets.enc"
+#    - "--plaintext-file=secrets.env"
+#    - "--location=global"
+#    - "--keyring=Resolutte"
+#    - "--key=docker-hub"
+
+## Login to provide credentials for the push.
+#- name: "gcr.io/cloud-builders/docker"
+#  entrypoint: 'bash'
+#  args: ['-c','docker login --username resolutte --password-stdin < secrets.env']
 
 # Login to provide credentials for the push.
 - name: "gcr.io/cloud-builders/docker"
   entrypoint: 'bash'
-  #args: ['-c','docker login --username resolutte --password-stdin < secrets.env']
   args: ['-c','echo $$PASSWORD','docker login --username=resolutte --password-stdin']
   secretEnv: ["PASSWORD"]
 
@@ -26,7 +30,7 @@ steps:
   - '-t'
   - 'gcr.io/$PROJECT_ID/php-fpm-5.6:latest'
   - '-t'
-  - 'gcr.io/$PROJECT_ID/php-fpm-5.6:$SHORT_SHA'
+  - 'gcr.io/$PROJECT_ID/php-fpm-5.6:1.0.0'
   - '-f'
   - 'php-fpm-5.6/Dockerfile'
   - '.'
@@ -39,7 +43,7 @@ steps:
   - '-t'
   - 'gcr.io/$PROJECT_ID/php-fpm-7.2:latest'
   - '-t'
-  - 'gcr.io/$PROJECT_ID/php-fpm-7.2:$SHORT_SHA'
+  - 'gcr.io/$PROJECT_ID/php-fpm-7.2:1.0.0'
   - '-f'
   - 'php-fpm-7.2/Dockerfile'
   - '.'
@@ -52,7 +56,7 @@ steps:
   - '-t'
   - 'gcr.io/$PROJECT_ID/php-fpm-7.3:latest'
   - '-t'
-  - 'gcr.io/$PROJECT_ID/php-fpm-7.3:$SHORT_SHA'
+  - 'gcr.io/$PROJECT_ID/php-fpm-7.3:1.0.0'
   - '-f'
   - 'php-fpm-7.3/Dockerfile'
   - '.'
@@ -65,35 +69,35 @@ steps:
   - '-t'
   - 'gcr.io/$PROJECT_ID/php-fpm-7.4:latest'
   - '-t'
-  - 'gcr.io/$PROJECT_ID/php-fpm-7.4:$SHORT_SHA'
+  - 'gcr.io/$PROJECT_ID/php-fpm-7.4:1.0.0'
   - '-f'
   - 'php-fpm-7.4/Dockerfile'
   - '.'
 
 # Push the image to Dockerhub.
 - name: 'gcr.io/cloud-builders/docker'
-  args:
-  - 'push'
-  - 'resolutte/php-fpm-5.6:latest'
-  - 'resolutte/php-fpm-5.6:$SHORT_SHA'
+  args: ['push','resolutte/php-fpm-5.6:latest']
 
 - name: 'gcr.io/cloud-builders/docker'
-  args:
-  - 'push'
-  - 'resolutte/php-fpm-7.2:latest'
-  - 'resolutte/php-fpm-7.2:$SHORT_SHA'
+  args: ['push','resolutte/php-fpm-5.6:1.0.0']
 
 - name: 'gcr.io/cloud-builders/docker'
-  args:
-  - 'push'
-  - 'resolutte/php-fpm-7.3:latest'
-  - 'resolutte/php-fpm-7.3:$SHORT_SHA'
+  args: ['push','resolutte/php-fpm-7.2:latest']
 
 - name: 'gcr.io/cloud-builders/docker'
-  args:
-  - 'push'
-  - 'resolutte/php-fpm-7.4:latest'
-  - 'resolutte/php-fpm-7.4:$SHORT_SHA'
+  args: ['push','resolutte/php-fpm-7.2:1.0.0']
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push','resolutte/php-fpm-7.3:latest']
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push','resolutte/php-fpm-7.3:1.0.0']
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push','resolutte/php-fpm-7.4:latest']
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push','resolutte/php-fpm-7.4:1.0.0']
 
 # Dockerhub Password
 secrets:
