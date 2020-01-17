@@ -13,7 +13,7 @@ steps:
 # Login to provide credentials for the push.
 - name: "gcr.io/cloud-builders/docker"
   entrypoint: "bash"
-  args: ["docker login --username=resolutte --password-stdin https://gcr.io"]
+  args: ["docker login --username resolutte --password-stdin < ./secrets git@github.com"]
   secretEnv: ["PASSWORD"]
 
 # Build the image.
