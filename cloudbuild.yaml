@@ -5,16 +5,22 @@ steps:
     - "kms"
     - "decrypt"
     - "--ciphertext-file=secrets.enc"
-    - "--plaintext-file=secrets"
+    - "--plaintext-file=/enc/secrets"
     - "--location=global"
     - "--keyring=Resolutte"
     - "--key=docker-hub"
+  volumes:
+    - name: 'enc'
+      path: '/enc'
 
 # Login to provide credentials for the push.
 - name: "gcr.io/cloud-builders/docker"
   entrypoint: "bash"
-  args: ["docker login --username resolutte --password-stdin < ./secrets git@github.com"]
-  secretEnv: ["PASSWORD"]
+  args: ["docker login --username resolutte --password-stdin < /enc/secrets git@github.com"]
+  #secretEnv: ["PASSWORD"]
+  volumes:
+    - name: 'enc'
+      path: '/enc'
 
 # Build the image.
 - name: 'gcr.io/cloud-builders/docker'
