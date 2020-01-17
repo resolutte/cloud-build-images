@@ -1,9 +1,19 @@
 steps:
 
+- name: "gcr.io/cloud-builders/gcloud"
+  args:
+    - "kms"
+    - "decrypt"
+    - "--ciphertext-file=secrets.enc"
+    - "--plaintext-file=secrets"
+    - "--location=global"
+    - "--keyring=Resolutte"
+    - "--key=docker-hub"
+
 # Login to provide credentials for the push.
 - name: "gcr.io/cloud-builders/docker"
   entrypoint: "bash"
-  args: ["docker login --username=resolutte --password=$$PASSWORD"]
+  args: ["docker login --username=resolutte --password-stdin < secrets"]
   secretEnv: ["PASSWORD"]
 
 # Build the image.
