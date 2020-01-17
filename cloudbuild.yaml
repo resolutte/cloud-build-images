@@ -1,36 +1,67 @@
 steps:
 
-- id: "Building image from Dockerfile PHP 5.6"
-  name: 'gcr.io/cloud-builders/docker'
-  args: ['build','-t','gcr.io/$PROJECT_ID/php-fpm-5.6:latest','-f','php-fpm-5.6/Dockerfile','.']
+- name: "gcr.io/cloud-builders/docker"
+  entrypoint: "bash"
+  args: ["-c", "docker login --username=resolutte --password=$$PASSWORD"]
+  secretEnv: ["PASSWORD"]
 
-- id: "Pushing image PHP 5.6"
-  name: 'gcr.io/cloud-builders/docker'
-  args: ['push','gcr.io/$PROJECT_ID/php-fpm-5.6:latest']
+- name: 'gcr.io/cloud-builders/docker'
+  args:
+  - 'build'
+  - '--build-arg'
+  - 'version=$SHORT_SHA'
+  - '-t'
+  - 'resolutte/php-fpm-5.6:latest'
+  - '-t'
+  - 'resolutte/php-fpm-5.6:$SHORT_SHA'
+  - '.'
+  images:
+  - "resolutte/php-fpm-5.6:latest"
+  - "resolutte/php-fpm-5.6:$SHORT_SHA"
 
+- name: 'gcr.io/cloud-builders/docker'
+  args:
+  - 'build'
+  - '--build-arg'
+  - 'version=$SHORT_SHA'
+  - '-t'
+  - 'resolutte/php-fpm-7.2:latest'
+  - '-t'
+  - 'resolutte/php-fpm-7.2:$SHORT_SHA'
+  - '.'
+  images:
+  - "resolutte/php-fpm-7.2:latest"
+  - "resolutte/php-fpm-7.2:$SHORT_SHA"
 
-- id: "Building image from Dockerfile PHP 7.2"
-  name: 'gcr.io/cloud-builders/docker'
-  args: ['build','-t','gcr.io/$PROJECT_ID/php-fpm-7.2:latest','-f','php-fpm-7.2/Dockerfile','.']
+- name: 'gcr.io/cloud-builders/docker'
+  args:
+  - 'build'
+  - '--build-arg'
+  - 'version=$SHORT_SHA'
+  - '-t'
+  - 'resolutte/php-fpm-7.3:latest'
+  - '-t'
+  - 'resolutte/php-fpm-7.3:$SHORT_SHA'
+  - '.'
+  images:
+  - "resolutte/php-fpm-7.3:latest"
+  - "resolutte/php-fpm-7.3:$SHORT_SHA"
 
-- id: "Pushing image PHP 7.2"
-  name: 'gcr.io/cloud-builders/docker'
-  args: ['push','gcr.io/$PROJECT_ID/php-fpm-7.2:latest']
+- name: 'gcr.io/cloud-builders/docker'
+  args:
+  - 'build'
+  - '--build-arg'
+  - 'version=$SHORT_SHA'
+  - '-t'
+  - 'resolutte/php-fpm-7.4:latest'
+  - '-t'
+  - 'resolutte/php-fpm-7.4:$SHORT_SHA'
+  - '.'
+  images:
+  - "resolutte/php-fpm-7.4:latest"
+  - "resolutte/php-fpm-7.4:$SHORT_SHA"
 
-
-- id: "Building image from Dockerfile PHP 7.3"
-  name: 'gcr.io/cloud-builders/docker'
-  args: ['build','-t','gcr.io/$PROJECT_ID/php-fpm-7.3:latest','-f','php-fpm-7.2/Dockerfile','.']
-
-- id: "Pushing image PHP 7.3"
-  name: 'gcr.io/cloud-builders/docker'
-  args: ['push','gcr.io/$PROJECT_ID/php-fpm-7.3:latest']
-
-
-- id: "Building image from Dockerfile PHP 7.4"
-  name: 'gcr.io/cloud-builders/docker'
-  args: ['build','-t','gcr.io/$PROJECT_ID/php-fpm-7.4:latest','-f','php-fpm-7.2/Dockerfile','.']
-
-- id: "Pushing image PHP 7.4"
-  name: 'gcr.io/cloud-builders/docker'
-  args: ['push','gcr.io/$PROJECT_ID/php-fpm-7.4:latest']
+secrets:
+  - kmsKeyName: "projects/$PROJECT_ID/locations/global/keyRings/Resolutte/cryptoKeys/docker-hub"
+    secretEnv:
+      PASSWORD: "$ uxwh[O Ô7ñM¦¬M)lìµñYÚfê·Dö¸1×*6 áØeM§ó¨¯1= 	=}?~~sè±çä>@ÄSÈÆYm#·ÐÒ*"
