@@ -62,4 +62,4 @@ images:
 secrets:
   - kmsKeyName: "projects/$PROJECT_ID/locations/global/keyRings/Resolutte/cryptoKeys/docker-hub"
     secretEnv:
-      PASSWORD: "$ uxwh[O Ô7ñM¦¬M)lìµñYÚfê·Dö¸1×*6 áØeM§ó¨¯1= 	=}?~~sè±çä>@ÄSÈÆYm#·ÐÒ*"
+      PASSWORD: "$ uxwh[O �7�M��M)l��Y�f�D��1ן*��6 ��e�M���1=��	=}�?~~�s�����䆚>@�S�ƑYm#���*"
