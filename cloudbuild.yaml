@@ -1,5 +1,8 @@
 steps:
 
+substitutions:
+  _IMAGE_VERSION_1: 1.0.0
+
 ## Decrypt Password
 #secrets:
 #  - kmsKeyName: 'projects/resolutte-264622/locations/global/keyRings/Resolutte/cryptoKeys/docker-hub'
@@ -34,11 +37,11 @@ steps:
   args:
   - 'build'
   - '--build-arg'
-  - 'version=$SHORT_SHA'
+  - 'version=${_IMAGE_VERSION_1}'
   - '-t'
   - 'resolutte/php-fpm-5.6:latest'
   - '-t'
-  - 'resolutte/php-fpm-5.6:$SHORT_SHA'
+  - 'resolutte/php-fpm-5.6:${_IMAGE_VERSION_1}'
   - '-f'
   - 'php-fpm-5.6/Dockerfile'
   - '.'
@@ -46,11 +49,11 @@ steps:
   args:
   - 'build'
   - '--build-arg'
-  - 'version=$SHORT_SHA'
+  - 'version=${_IMAGE_VERSION_1}'
   - '-t'
   - 'resolutte/php-fpm-7.2:latest'
   - '-t'
-  - 'resolutte/php-fpm-7.2:$SHORT_SHA'
+  - 'resolutte/php-fpm-7.2:${_IMAGE_VERSION_1}'
   - '-f'
   - 'php-fpm-7.2/Dockerfile'
   - '.'
@@ -58,11 +61,11 @@ steps:
   args:
   - 'build'
   - '--build-arg'
-  - 'version=$SHORT_SHA'
+  - 'version=${_IMAGE_VERSION_1}'
   - '-t'
   - 'resolutte/php-fpm-7.3:latest'
   - '-t'
-  - 'resolutte/php-fpm-7.3:$SHORT_SHA'
+  - 'resolutte/php-fpm-7.3:${_IMAGE_VERSION_1}'
   - '-f'
   - 'php-fpm-7.3/Dockerfile'
   - '.'
@@ -70,11 +73,11 @@ steps:
   args:
   - 'build'
   - '--build-arg'
-  - 'version=$SHORT_SHA'
+  - 'version=${_IMAGE_VERSION_1}'
   - '-t'
   - 'resolutte/php-fpm-7.4:latest'
   - '-t'
-  - 'resolutte/php-fpm-7.4:$SHORT_SHA'
+  - 'resolutte/php-fpm-7.4:${_IMAGE_VERSION_1}'
   - '-f'
   - 'php-fpm-7.4/Dockerfile'
   - '.'
@@ -82,10 +85,10 @@ steps:
 # Push the image to Dockerhub.
 images:
   - 'resolutte/php-fpm-5.6:latest'
-  - 'resolutte/php-fpm-5.6:$SHORT_SHA'
+  - 'resolutte/php-fpm-5.6:${_IMAGE_VERSION_1}'
   - 'resolutte/php-fpm-7.2:latest'
-  - 'resolutte/php-fpm-7.2:$SHORT_SHA'
+  - 'resolutte/php-fpm-7.2:${_IMAGE_VERSION_1}'
   - 'resolutte/php-fpm-7.3:latest'
-  - 'resolutte/php-fpm-7.3:$SHORT_SHA'
+  - 'resolutte/php-fpm-7.3:${_IMAGE_VERSION_1}'
   - 'resolutte/php-fpm-7.4:latest'
-  - 'resolutte/php-fpm-7.4:$SHORT_SHA'
+  - 'resolutte/php-fpm-7.4:${_IMAGE_VERSION_1}'
