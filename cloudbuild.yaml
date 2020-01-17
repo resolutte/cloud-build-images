@@ -18,7 +18,7 @@ steps:
   entrypoint: "bash"
   #args: ["docker login --username resolutte --password-stdin < /enc/secrets git@github.com"]
   args: ['-c', 'docker login --username resolutte --password $$PASSWORD git@github.com']
-  #secretEnv: ["PASSWORD"]
+  secretEnv: ["PASSWORD"]
   volumes:
     - name: 'enc'
       path: '/enc'
