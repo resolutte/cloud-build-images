@@ -16,7 +16,8 @@ steps:
 # Login to provide credentials for the push.
 - name: "gcr.io/cloud-builders/docker"
   entrypoint: "bash"
-  args: ["docker login --username resolutte --password-stdin < /enc/secrets git@github.com"]
+  #args: ["docker login --username resolutte --password-stdin < /enc/secrets git@github.com"]
+  args: ['-c', 'docker login --username resolutte --password $$PASSWORD git@github.com']
   #secretEnv: ["PASSWORD"]
   volumes:
     - name: 'enc'
@@ -101,7 +102,7 @@ steps:
   - 'resolutte/php-fpm-7.4:$SHORT_SHA'
 
 # Dockerhub Password
-#secrets:
-#  - kmsKeyName: "projects/resolutte-264622/locations/global/keyRings/Resolutte/cryptoKeys/docker-hub"
-#    secretEnv:
-#      PASSWORD: "CiQAdXh3aKdd1NsLONJFjz9fv3exCLmbm03k984tS2xCS0gSqHESPQDhENgDjOVi42SXgNBjReCs8f0TMHF+fTwJsGrub/FqZAQCyzViraoNilJcEHdRLRvsBX3hYeTqaScTW6k="
+secrets:
+  - kmsKeyName: "projects/resolutte-264622/locations/global/keyRings/Resolutte/cryptoKeys/docker-hub"
+    secretEnv:
+      PASSWORD: CiQAdXh3aKdd1NsLONJFjz9fv3exCLmbm03k984tS2xCS0gSqHESPQDhENgDjOVi42SXgNBjReCs8f0TMHF+fTwJsGrub/FqZAQCyzViraoNilJcEHdRLRvsBX3hYeTqaScTW6k=
