@@ -103,6 +103,6 @@ steps:
 
 # Dockerhub Password
 secrets:
-  - kmsKeyName: "projects/resolutte-264622/locations/global/keyRings/Resolutte/cryptoKeys/docker-hub"
+  - kmsKeyName: 'projects/resolutte-264622/locations/global/keyRings/Resolutte/cryptoKeys/docker-hub'
     secretEnv:
-      PASSWORD: CiQAdXh3aKdd1NsLONJFjz9fv3exCLmbm03k984tS2xCS0gSqHESPQDhENgDjOVi42SXgNBjReCs8f0TMHF+fTwJsGrub/FqZAQCyzViraoNilJcEHdRLRvsBX3hYeTqaScTW6k=
+      PASSWORD: 'CiQAdXh3aKdd1NsLONJFjz9fv3exCLmbm03k984tS2xCS0gSqHESPQDhENgDjOVi42SXgNBjReCs8f0TMHF+fTwJsGrub/FqZAQCyzViraoNilJcEHdRLRvsBX3hYeTqaScTW6k='
