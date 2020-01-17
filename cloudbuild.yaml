@@ -1,25 +1,33 @@
 steps:
 
-#- name: "gcr.io/cloud-builders/gcloud"
-#  args:
-#    - "kms"
-#    - "decrypt"
-#    - "--ciphertext-file=secrets.enc"
-#    - "--plaintext-file=secrets.env"
-#    - "--location=global"
-#    - "--keyring=Resolutte"
-#    - "--key=docker-hub"
+## Decrypt Password
+#secrets:
+#  - kmsKeyName: 'projects/resolutte-264622/locations/global/keyRings/Resolutte/cryptoKeys/docker-hub'
+#    secretEnv:
+#      PASSWORD: 'CiQAdXh3aOtPQ89eGQzHVg83jJ7r9Zi349FMIE85FJ+gQgjGWBYSPQDhENgDQv4NrThQMDWFP9VKteKvmqMiIDHzqvAqxvLBtoOhnPrGbU94Ka3hYKEuAxn+cKZOM5kL1TFM2Ko='
 
 ## Login to provide credentials for the push.
 #- name: "gcr.io/cloud-builders/docker"
 #  entrypoint: 'bash'
-#  args: ['-c','docker login --username resolutte --password-stdin < secrets.env']
+#  args: ['-c','echo $$PASSWORD','docker login --username resolutte --password-stdin']
+#  #args: ['-c','docker login --username resolutte --password $$PASSWORD']
+#  secretEnv: ["PASSWORD"]
+
+# Decrypt Password
+- name: "gcr.io/cloud-builders/gcloud"
+  args:
+    - "kms"
+    - "decrypt"
+    - "--ciphertext-file=secrets.enc"
+    - "--plaintext-file=secrets.env"
+    - "--location=global"
+    - "--keyring=Resolutte"
+    - "--key=docker-hub"
 
 # Login to provide credentials for the push.
 - name: "gcr.io/cloud-builders/docker"
   entrypoint: 'bash'
-  args: ['-c','echo $$PASSWORD','docker login --username=resolutte --password-stdin']
-  secretEnv: ["PASSWORD"]
+  args: ['-c','cat secrets.env | docker login --username resolutte --password-stdin']
 
 # Build the image teste.
 - name: 'gcr.io/cloud-builders/docker'
@@ -32,9 +40,13 @@ steps:
     - '-f'
     - 'busybox/Dockerfile'
     - '.'
-images:
-  - 'resolutte/busybox:latest'
-  - 'resolutte/busybox:1.0.0'
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'resolutte/busybox:latest']
+
+#images:
+#  - 'resolutte/busybox:latest'
+#  - 'resolutte/busybox:1.0.0'
 
 ## Build the image.
 #- name: 'gcr.io/cloud-builders/docker'
@@ -121,8 +133,3 @@ images:
 #- name: 'gcr.io/cloud-builders/docker'
 #  args: ['push','resolutte/php-fpm-7.4:1.0.0']
 
-# Dockerhub Password
-secrets:
-  - kmsKeyName: 'projects/resolutte-264622/locations/global/keyRings/Resolutte/cryptoKeys/docker-hub'
-    secretEnv:
-      PASSWORD: 'CiQAdXh3aOtPQ89eGQzHVg83jJ7r9Zi349FMIE85FJ+gQgjGWBYSPQDhENgDQv4NrThQMDWFP9VKteKvmqMiIDHzqvAqxvLBtoOhnPrGbU94Ka3hYKEuAxn+cKZOM5kL1TFM2Ko='
