@@ -13,6 +13,7 @@ steps:
     - name: 'enc'
       path: '/enc'
 
+
 # Login to provide credentials for the push.
 - name: "gcr.io/cloud-builders/docker"
   entrypoint: "bash"
