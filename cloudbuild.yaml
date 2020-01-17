@@ -16,8 +16,8 @@ steps:
 # Login to provide credentials for the push.
 - name: "gcr.io/cloud-builders/docker"
   entrypoint: "bash"
-  #args: ["docker login --username resolutte --password-stdin < /enc/secrets git@github.com"]
-  args: ['-c', 'docker login --username resolutte --password $$PASSWORD git@github.com']
+  #args: ["docker login --username resolutte --password-stdin < /enc/secrets https://registry-1.docker.io/v2"]
+  args: ['-c', 'docker login --username resolutte --password $$PASSWORD https://registry-1.docker.io/v2']
   secretEnv: ["PASSWORD"]
   volumes:
     - name: 'enc'
