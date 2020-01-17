@@ -18,7 +18,8 @@ steps:
 - name: "gcr.io/cloud-builders/docker"
   entrypoint: "bash"
   #args: ["docker login --username resolutte --password-stdin < /enc/secrets https://registry-1.docker.io"]
-  args: ['echo', '$$PASSWORD', 'docker login --username resolutte --password-stdin']
+  #args: ['-c', 'docker login --username resolutte --password-stdin $$PASSWORD']
+  args: ['cat', '/enc/secrets', 'docker login --username resolutte --password-stdin']
   secretEnv: ["PASSWORD"]
   volumes:
     - name: 'enc'
