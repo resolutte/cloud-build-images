@@ -25,8 +25,6 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args:
   - 'build'
-  - '--build-arg'
-  - 'version=1.0.0'
   - '-t'
   - 'resolutte/php-fpm-5.6:latest'
   - '-t'
@@ -34,76 +32,79 @@ steps:
   - '-f'
   - 'php-fpm-5.6/Dockerfile'
   - '.'
+images:
+- 'resolutte/php-fpm-5.6:latest'
+- 'resolutte/php-fpm-5.6:1.0.0'
 
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push','resolutte/php-fpm-5.6:latest']
-
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push','resolutte/php-fpm-5.6:1.0.0']
-
-- name: 'gcr.io/cloud-builders/docker'
-  args:
-  - 'build'
-  - '--build-arg'
-  - 'version=1.0.0'
-  - '-t'
-  - 'resolutte/php-fpm-7.2:latest'
-  - '-t'
-  - 'resolutte/php-fpm-7.2:1.0.0'
-  - '-f'
-  - 'php-fpm-7.2/Dockerfile'
-  - '.'
-
-- name: 'gcr.io/cloud-builders/docker'
-  args:
-  - 'build'
-  - '--build-arg'
-  - 'version=1.0.0'
-  - '-t'
-  - 'resolutte/php-fpm-7.3:latest'
-  - '-t'
-  - 'resolutte/php-fpm-7.3:1.0.0'
-  - '-f'
-  - 'php-fpm-7.3/Dockerfile'
-  - '.'
-
-- name: 'gcr.io/cloud-builders/docker'
-  args:
-  - 'build'
-  - '--build-arg'
-  - 'version=1.0.0'
-  - '-t'
-  - 'resolutte/php-fpm-7.4:latest'
-  - '-t'
-  - 'resolutte/php-fpm-7.4:1.0.0'
-  - '-f'
-  - 'php-fpm-7.4/Dockerfile'
-  - '.'
-
-# Push the image to Dockerhub.
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push','resolutte/php-fpm-5.6:latest']
-
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push','resolutte/php-fpm-5.6:1.0.0']
-
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push','resolutte/php-fpm-7.2:latest']
-
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push','resolutte/php-fpm-7.2:1.0.0']
-
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push','resolutte/php-fpm-7.3:latest']
-
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push','resolutte/php-fpm-7.3:1.0.0']
-
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push','resolutte/php-fpm-7.4:latest']
-
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push','resolutte/php-fpm-7.4:1.0.0']
+#- name: 'gcr.io/cloud-builders/docker'
+#  args: ['push','resolutte/php-fpm-5.6:latest']
+#
+#- name: 'gcr.io/cloud-builders/docker'
+#  args: ['push','resolutte/php-fpm-5.6:1.0.0']
+#
+#- name: 'gcr.io/cloud-builders/docker'
+#  args:
+#  - 'build'
+#  - '--build-arg'
+#  - 'version=1.0.0'
+#  - '-t'
+#  - 'resolutte/php-fpm-7.2:latest'
+#  - '-t'
+#  - 'resolutte/php-fpm-7.2:1.0.0'
+#  - '-f'
+#  - 'php-fpm-7.2/Dockerfile'
+#  - '.'
+#
+#- name: 'gcr.io/cloud-builders/docker'
+#  args:
+#  - 'build'
+#  - '--build-arg'
+#  - 'version=1.0.0'
+#  - '-t'
+#  - 'resolutte/php-fpm-7.3:latest'
+#  - '-t'
+#  - 'resolutte/php-fpm-7.3:1.0.0'
+#  - '-f'
+#  - 'php-fpm-7.3/Dockerfile'
+#  - '.'
+#
+#- name: 'gcr.io/cloud-builders/docker'
+#  args:
+#  - 'build'
+#  - '--build-arg'
+#  - 'version=1.0.0'
+#  - '-t'
+#  - 'resolutte/php-fpm-7.4:latest'
+#  - '-t'
+#  - 'resolutte/php-fpm-7.4:1.0.0'
+#  - '-f'
+#  - 'php-fpm-7.4/Dockerfile'
+#  - '.'
+#
+## Push the image to Dockerhub.
+#- name: 'gcr.io/cloud-builders/docker'
+#  args: ['push','resolutte/php-fpm-5.6:latest']
+#
+#- name: 'gcr.io/cloud-builders/docker'
+#  args: ['push','resolutte/php-fpm-5.6:1.0.0']
+#
+#- name: 'gcr.io/cloud-builders/docker'
+#  args: ['push','resolutte/php-fpm-7.2:latest']
+#
+#- name: 'gcr.io/cloud-builders/docker'
+#  args: ['push','resolutte/php-fpm-7.2:1.0.0']
+#
+#- name: 'gcr.io/cloud-builders/docker'
+#  args: ['push','resolutte/php-fpm-7.3:latest']
+#
+#- name: 'gcr.io/cloud-builders/docker'
+#  args: ['push','resolutte/php-fpm-7.3:1.0.0']
+#
+#- name: 'gcr.io/cloud-builders/docker'
+#  args: ['push','resolutte/php-fpm-7.4:latest']
+#
+#- name: 'gcr.io/cloud-builders/docker'
+#  args: ['push','resolutte/php-fpm-7.4:1.0.0']
 
 # Dockerhub Password
 secrets:
