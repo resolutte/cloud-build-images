@@ -15,9 +15,6 @@ steps:
   - '-t'
   - 'resolutte/php-fpm-5.6:$SHORT_SHA'
   - '.'
-  images:
-  - "resolutte/php-fpm-5.6:latest"
-  - "resolutte/php-fpm-5.6:$SHORT_SHA"
 
 - name: 'gcr.io/cloud-builders/docker'
   args:
@@ -29,9 +26,6 @@ steps:
   - '-t'
   - 'resolutte/php-fpm-7.2:$SHORT_SHA'
   - '.'
-  images:
-  - "resolutte/php-fpm-7.2:latest"
-  - "resolutte/php-fpm-7.2:$SHORT_SHA"
 
 - name: 'gcr.io/cloud-builders/docker'
   args:
@@ -43,9 +37,6 @@ steps:
   - '-t'
   - 'resolutte/php-fpm-7.3:$SHORT_SHA'
   - '.'
-  images:
-  - "resolutte/php-fpm-7.3:latest"
-  - "resolutte/php-fpm-7.3:$SHORT_SHA"
 
 - name: 'gcr.io/cloud-builders/docker'
   args:
@@ -57,7 +48,14 @@ steps:
   - '-t'
   - 'resolutte/php-fpm-7.4:$SHORT_SHA'
   - '.'
-  images:
+
+images:
+  - "resolutte/php-fpm-5.6:latest"
+  - "resolutte/php-fpm-5.6:$SHORT_SHA"
+  - "resolutte/php-fpm-7.2:latest"
+  - "resolutte/php-fpm-7.2:$SHORT_SHA"
+  - "resolutte/php-fpm-7.3:latest"
+  - "resolutte/php-fpm-7.3:$SHORT_SHA"
   - "resolutte/php-fpm-7.4:latest"
   - "resolutte/php-fpm-7.4:$SHORT_SHA"
 
