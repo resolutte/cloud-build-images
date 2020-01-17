@@ -13,6 +13,10 @@ steps:
 #  #args: ['-c','docker login --username resolutte --password $$PASSWORD']
 #  secretEnv: ["PASSWORD"]
 
+- name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'bash'
+  args: ['-c', 'date -u +%Y%m%dT%H%M_$SHORT_SHA > _TAG']
+
 # Decrypt Password
 - name: "gcr.io/cloud-builders/gcloud"
   args:
@@ -34,11 +38,11 @@ steps:
   args:
   - 'build'
   - '--build-arg'
-  - 'version=$(date -u +%Y%m%dT%H%M%S_$SHORT_SHA)'
+  - 'version=$(cat _TAG)'
   - '-t'
   - 'resolutte/php-fpm-5.6:latest'
   - '-t'
-  - 'resolutte/php-fpm-5.6:$(date -u +%Y%m%dT%H%M%S_$SHORT_SHA)'
+  - 'resolutte/php-fpm-5.6:$(cat _TAG)'
   - '-f'
   - 'php-fpm-5.6/Dockerfile'
   - '.'
@@ -46,11 +50,11 @@ steps:
   args:
   - 'build'
   - '--build-arg'
-  - 'version=$(date -u +%Y%m%dT%H%M%S_$SHORT_SHA)'
+  - 'version=$(cat _TAG)'
   - '-t'
   - 'resolutte/php-fpm-7.2:latest'
   - '-t'
-  - 'resolutte/php-fpm-7.2:$(date -u +%Y%m%dT%H%M%S_$SHORT_SHA)'
+  - 'resolutte/php-fpm-7.2:$(cat _TAG)'
   - '-f'
   - 'php-fpm-7.2/Dockerfile'
   - '.'
@@ -58,11 +62,11 @@ steps:
   args:
   - 'build'
   - '--build-arg'
-  - 'version=$(date -u +%Y%m%dT%H%M%S_$SHORT_SHA)'
+  - 'version=$(cat _TAG)'
   - '-t'
   - 'resolutte/php-fpm-7.3:latest'
   - '-t'
-  - 'resolutte/php-fpm-7.3:$(date -u +%Y%m%dT%H%M%S_$SHORT_SHA)'
+  - 'resolutte/php-fpm-7.3:$(cat _TAG)'
   - '-f'
   - 'php-fpm-7.3/Dockerfile'
   - '.'
@@ -70,11 +74,11 @@ steps:
   args:
   - 'build'
   - '--build-arg'
-  - 'version=$(date -u +%Y%m%dT%H%M%S_$SHORT_SHA)'
+  - 'version=$(cat _TAG)'
   - '-t'
   - 'resolutte/php-fpm-7.4:latest'
   - '-t'
-  - 'resolutte/php-fpm-7.4:$(date -u +%Y%m%dT%H%M%S_$SHORT_SHA)'
+  - 'resolutte/php-fpm-7.4:$(cat _TAG)'
   - '-f'
   - 'php-fpm-7.4/Dockerfile'
   - '.'
@@ -82,10 +86,10 @@ steps:
 # Push the image to Dockerhub.
 images:
   - 'resolutte/php-fpm-5.6:latest'
-  - 'resolutte/php-fpm-5.6:$(date -u +%Y%m%dT%H%M%S_$SHORT_SHA)'
+  - 'resolutte/php-fpm-5.6:$(cat _TAG)'
   - 'resolutte/php-fpm-7.2:latest'
-  - 'resolutte/php-fpm-7.2:$(date -u +%Y%m%dT%H%M%S_$SHORT_SHA)'
+  - 'resolutte/php-fpm-7.2:$(cat _TAG)'
   - 'resolutte/php-fpm-7.3:latest'
-  - 'resolutte/php-fpm-7.3:$(date -u +%Y%m%dT%H%M%S_$SHORT_SHA)'
+  - 'resolutte/php-fpm-7.3:$(cat _TAG)'
   - 'resolutte/php-fpm-7.4:latest'
-  - 'resolutte/php-fpm-7.4:$(date -u +%Y%m%dT%H%M%S_$SHORT_SHA)'
+  - 'resolutte/php-fpm-7.4:$(cat _TAG)'
