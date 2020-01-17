@@ -1,8 +1,5 @@
 steps:
 
-substitutions:
-  _IMAGE_VERSION_1: 1.0.0
-
 ## Decrypt Password
 #secrets:
 #  - kmsKeyName: 'projects/resolutte-264622/locations/global/keyRings/Resolutte/cryptoKeys/docker-hub'
@@ -81,6 +78,9 @@ substitutions:
   - '-f'
   - 'php-fpm-7.4/Dockerfile'
   - '.'
+
+substitutions:
+  _IMAGE_VERSION_1: '1.0.0'
 
 # Push the image to Dockerhub.
 images:
