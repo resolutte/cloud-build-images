@@ -29,107 +29,63 @@ steps:
   entrypoint: 'bash'
   args: ['-c','cat secrets.env | docker login --username resolutte --password-stdin']
 
-# Build the image teste.
+# Build the image.
 - name: 'gcr.io/cloud-builders/docker'
   args:
-    - 'build'
-    - '-t'
-    - 'resolutte/busybox:latest'
-    - '-t'
-    - 'resolutte/busybox:1.0.0'
-    - '-f'
-    - 'busybox/Dockerfile'
-    - '.'
-
+  - 'build'
+  - '--build-arg'
+  - 'version=$SHORT_SHA'
+  - '-t'
+  - 'resolutte/php-fpm-5.6:latest'
+  - '-t'
+  - 'resolutte/php-fpm-5.6:$SHORT_SHA'
+  - '-f'
+  - 'php-fpm-5.6/Dockerfile'
+  - '.'
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'resolutte/busybox:latest']
+  args:
+  - 'build'
+  - '--build-arg'
+  - 'version=$SHORT_SHA'
+  - '-t'
+  - 'resolutte/php-fpm-7.2:latest'
+  - '-t'
+  - 'resolutte/php-fpm-7.2:$SHORT_SHA'
+  - '-f'
+  - 'php-fpm-7.2/Dockerfile'
+  - '.'
+- name: 'gcr.io/cloud-builders/docker'
+  args:
+  - 'build'
+  - '--build-arg'
+  - 'version=$SHORT_SHA'
+  - '-t'
+  - 'resolutte/php-fpm-7.3:latest'
+  - '-t'
+  - 'resolutte/php-fpm-7.3:$SHORT_SHA'
+  - '-f'
+  - 'php-fpm-7.3/Dockerfile'
+  - '.'
+- name: 'gcr.io/cloud-builders/docker'
+  args:
+  - 'build'
+  - '--build-arg'
+  - 'version=$SHORT_SHA'
+  - '-t'
+  - 'resolutte/php-fpm-7.4:latest'
+  - '-t'
+  - 'resolutte/php-fpm-7.4:$SHORT_SHA'
+  - '-f'
+  - 'php-fpm-7.4/Dockerfile'
+  - '.'
 
-#images:
-#  - 'resolutte/busybox:latest'
-#  - 'resolutte/busybox:1.0.0'
-
-## Build the image.
-#- name: 'gcr.io/cloud-builders/docker'
-#  args:
-#  - 'build'
-#  - '-t'
-#  - 'resolutte/php-fpm-5.6:latest'
-#  - '-t'
-#  - 'resolutte/php-fpm-5.6:1.0.0'
-#  - '-f'
-#  - 'php-fpm-5.6/Dockerfile'
-#  - '.'
-#images:
-#- 'resolutte/php-fpm-5.6:latest'
-#- 'resolutte/php-fpm-5.6:1.0.0'
-
-#- name: 'gcr.io/cloud-builders/docker'
-#  args: ['push','resolutte/php-fpm-5.6:latest']
-#
-#- name: 'gcr.io/cloud-builders/docker'
-#  args: ['push','resolutte/php-fpm-5.6:1.0.0']
-#
-#- name: 'gcr.io/cloud-builders/docker'
-#  args:
-#  - 'build'
-#  - '--build-arg'
-#  - 'version=1.0.0'
-#  - '-t'
-#  - 'resolutte/php-fpm-7.2:latest'
-#  - '-t'
-#  - 'resolutte/php-fpm-7.2:1.0.0'
-#  - '-f'
-#  - 'php-fpm-7.2/Dockerfile'
-#  - '.'
-#
-#- name: 'gcr.io/cloud-builders/docker'
-#  args:
-#  - 'build'
-#  - '--build-arg'
-#  - 'version=1.0.0'
-#  - '-t'
-#  - 'resolutte/php-fpm-7.3:latest'
-#  - '-t'
-#  - 'resolutte/php-fpm-7.3:1.0.0'
-#  - '-f'
-#  - 'php-fpm-7.3/Dockerfile'
-#  - '.'
-#
-#- name: 'gcr.io/cloud-builders/docker'
-#  args:
-#  - 'build'
-#  - '--build-arg'
-#  - 'version=1.0.0'
-#  - '-t'
-#  - 'resolutte/php-fpm-7.4:latest'
-#  - '-t'
-#  - 'resolutte/php-fpm-7.4:1.0.0'
-#  - '-f'
-#  - 'php-fpm-7.4/Dockerfile'
-#  - '.'
-#
-## Push the image to Dockerhub.
-#- name: 'gcr.io/cloud-builders/docker'
-#  args: ['push','resolutte/php-fpm-5.6:latest']
-#
-#- name: 'gcr.io/cloud-builders/docker'
-#  args: ['push','resolutte/php-fpm-5.6:1.0.0']
-#
-#- name: 'gcr.io/cloud-builders/docker'
-#  args: ['push','resolutte/php-fpm-7.2:latest']
-#
-#- name: 'gcr.io/cloud-builders/docker'
-#  args: ['push','resolutte/php-fpm-7.2:1.0.0']
-#
-#- name: 'gcr.io/cloud-builders/docker'
-#  args: ['push','resolutte/php-fpm-7.3:latest']
-#
-#- name: 'gcr.io/cloud-builders/docker'
-#  args: ['push','resolutte/php-fpm-7.3:1.0.0']
-#
-#- name: 'gcr.io/cloud-builders/docker'
-#  args: ['push','resolutte/php-fpm-7.4:latest']
-#
-#- name: 'gcr.io/cloud-builders/docker'
-#  args: ['push','resolutte/php-fpm-7.4:1.0.0']
-
+# Push the image to Dockerhub.
+images:
+  - 'resolutte/php-fpm-5.6:latest'
+  - 'resolutte/php-fpm-5.6:$SHORT_SHA'
+  - 'resolutte/php-fpm-7.2:latest'
+  - 'resolutte/php-fpm-7.2:$SHORT_SHA'
+  - 'resolutte/php-fpm-7.3:latest'
+  - 'resolutte/php-fpm-7.3:$SHORT_SHA'
+  - 'resolutte/php-fpm-7.4:latest'
+  - 'resolutte/php-fpm-7.4:$SHORT_SHA'
