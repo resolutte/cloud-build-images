@@ -80,7 +80,7 @@ steps:
   - '.'
 
 substitutions:
-  _IMAGE_VERSION_1: '1.1.0'
+  _IMAGE_VERSION_1: '1.2.0'
 
 # Push the image to Dockerhub.
 images:
