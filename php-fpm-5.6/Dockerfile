@@ -11,7 +11,6 @@ RUN apt-get update; \
             nano \
             curl \
             zip \
-            soap \
             wget \
             imagemagick \
             php5-fpm \
