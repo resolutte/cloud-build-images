@@ -24,9 +24,7 @@ RUN set -xe && \
     libfreetype6-dev \
     libssl-dev \
     libmcrypt-dev \
-    libjpeg-turbo-dev \
     libjpeg62-turbo-dev \
-    freetype-dev \
   && rm -rf /var/lib/apt/lists/*
 
 RUN docker-php-ext-install pdo_mysql \
