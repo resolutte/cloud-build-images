@@ -11,11 +11,6 @@ RUN set -xe && \
     nano \
     curl \
     wget \
-    less \
-    cron \
-    git \
-    unzip \
-    libzip-dev \
     libmemcached-dev \
     libz-dev \
     libpq-dev \
@@ -24,8 +19,6 @@ RUN set -xe && \
     libfreetype6-dev \
     libssl-dev \
     libmcrypt-dev \
-    libjpeg-turbo-dev \
-    libjpeg62-turbo-dev \
   && rm -rf /var/lib/apt/lists/*
 
 RUN docker-php-ext-install pdo_mysql \
