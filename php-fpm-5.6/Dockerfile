@@ -12,6 +12,9 @@ RUN apt-get update; \
             curl \
             zip \
             wget \
+            cron \
+            git \
+            unzip \
             imagemagick \
             php5-fpm \
             php5-curl \
