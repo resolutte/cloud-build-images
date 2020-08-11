@@ -1,6 +1,6 @@
 FROM php:7.4-fpm
 
-LABEL maintainer="Eduardo Zinhani <ezinhani@gmail.com>"
+LABEL maintainer="Resolutte <suporte@resolutte.app>"
 
 ENV DEBIAN_FRONTEND noninteractive
 

@@ -1,91 +1,117 @@
 steps:
 
-## Decrypt Password
-#secrets:
-#  - kmsKeyName: 'projects/resolutte-264622/locations/global/keyRings/Resolutte/cryptoKeys/docker-hub'
-#    secretEnv:
-#      PASSWORD: 'CiQAdXh3aOtPQ89eGQzHVg83jJ7r9Zi349FMIE85FJ+gQgjGWBYSPQDhENgDQv4NrThQMDWFP9VKteKvmqMiIDHzqvAqxvLBtoOhnPrGbU94Ka3hYKEuAxn+cKZOM5kL1TFM2Ko='
+  - id: "Decrypt Password"
+    name: "gcr.io/cloud-builders/gcloud"
+    args:
+      - "kms"
+      - "decrypt"
+      - "--ciphertext-file=secrets.enc"
+      - "--plaintext-file=secrets.env"
+      - "--location=global"
+      - "--keyring=Resolutte"
+      - "--key=docker-hub"
 
-## Login to provide credentials for the push.
-#- name: "gcr.io/cloud-builders/docker"
-#  entrypoint: 'bash'
-#  args: ['-c','echo $$PASSWORD','docker login --username resolutte --password-stdin']
-#  #args: ['-c','docker login --username resolutte --password $$PASSWORD']
-#  secretEnv: ["PASSWORD"]
+  - id: "Login to provide credentials for the push"
+    name: "gcr.io/cloud-builders/docker"
+    entrypoint: 'bash'
+    args: ['-c','cat secrets.env | docker login --username resolutte --password-stdin']
 
-# Decrypt Password
-- name: "gcr.io/cloud-builders/gcloud"
-  args:
-    - "kms"
-    - "decrypt"
-    - "--ciphertext-file=secrets.enc"
-    - "--plaintext-file=secrets.env"
-    - "--location=global"
-    - "--keyring=Resolutte"
-    - "--key=docker-hub"
+  - id: "Build the image php-fpm-5.6"
+    name: 'gcr.io/cloud-builders/docker'
+    args:
+    - 'build'
+    - '--build-arg'
+    - 'version=${_IMAGE_VERSION_1}'
+    - '-t'
+    - 'resolutte/php-fpm-5.6:latest'
+    - '-t'
+    - 'resolutte/php-fpm-5.6:${_IMAGE_VERSION_1}'
+    - '-f'
+    - 'php-fpm-5.6/Dockerfile'
+    - '.'
 
-# Login to provide credentials for the push.
-- name: "gcr.io/cloud-builders/docker"
-  entrypoint: 'bash'
-  args: ['-c','cat secrets.env | docker login --username resolutte --password-stdin']
+  - id: "Build the image php-fpm-7.0"
+    name: 'gcr.io/cloud-builders/docker'
+    args:
+    - 'build'
+    - '--build-arg'
+    - 'version=${_IMAGE_VERSION_1}'
+    - '-t'
+    - 'resolutte/php-fpm-7.0:latest'
+    - '-t'
+    - 'resolutte/php-fpm-7.0:${_IMAGE_VERSION_1}'
+    - '-f'
+    - 'php-fpm-7.0/Dockerfile'
+    - '.'
 
-# Build the image.
-- name: 'gcr.io/cloud-builders/docker'
-  args:
-  - 'build'
-  - '--build-arg'
-  - 'version=${_IMAGE_VERSION_1}'
-  - '-t'
-  - 'resolutte/php-fpm-5.6:latest'
-  - '-t'
-  - 'resolutte/php-fpm-5.6:${_IMAGE_VERSION_1}'
-  - '-f'
-  - 'php-fpm-5.6/Dockerfile'
-  - '.'
-- name: 'gcr.io/cloud-builders/docker'
-  args:
-  - 'build'
-  - '--build-arg'
-  - 'version=${_IMAGE_VERSION_1}'
-  - '-t'
-  - 'resolutte/php-fpm-7.2:latest'
-  - '-t'
-  - 'resolutte/php-fpm-7.2:${_IMAGE_VERSION_1}'
-  - '-f'
-  - 'php-fpm-7.2/Dockerfile'
-  - '.'
-- name: 'gcr.io/cloud-builders/docker'
-  args:
-  - 'build'
-  - '--build-arg'
-  - 'version=${_IMAGE_VERSION_1}'
-  - '-t'
-  - 'resolutte/php-fpm-7.3:latest'
-  - '-t'
-  - 'resolutte/php-fpm-7.3:${_IMAGE_VERSION_1}'
-  - '-f'
-  - 'php-fpm-7.3/Dockerfile'
-  - '.'
-- name: 'gcr.io/cloud-builders/docker'
-  args:
-  - 'build'
-  - '--build-arg'
-  - 'version=${_IMAGE_VERSION_1}'
-  - '-t'
-  - 'resolutte/php-fpm-7.4:latest'
-  - '-t'
-  - 'resolutte/php-fpm-7.4:${_IMAGE_VERSION_1}'
-  - '-f'
-  - 'php-fpm-7.4/Dockerfile'
-  - '.'
+  - id: "Build the image php-fpm-7.1"
+    name: 'gcr.io/cloud-builders/docker'
+    args:
+    - 'build'
+    - '--build-arg'
+    - 'version=${_IMAGE_VERSION_1}'
+    - '-t'
+    - 'resolutte/php-fpm-7.1:latest'
+    - '-t'
+    - 'resolutte/php-fpm-7.1:${_IMAGE_VERSION_1}'
+    - '-f'
+    - 'php-fpm-7.1/Dockerfile'
+    - '.'
 
+  - id: "Build the image php-fpm-7.2"
+    name: 'gcr.io/cloud-builders/docker'
+    args:
+    - 'build'
+    - '--build-arg'
+    - 'version=${_IMAGE_VERSION_1}'
+    - '-t'
+    - 'resolutte/php-fpm-7.2:latest'
+    - '-t'
+    - 'resolutte/php-fpm-7.2:${_IMAGE_VERSION_1}'
+    - '-f'
+    - 'php-fpm-7.2/Dockerfile'
+    - '.'
+
+  - id: "Build the image php-fpm-7.3"
+    name: 'gcr.io/cloud-builders/docker'
+    args:
+    - 'build'
+    - '--build-arg'
+    - 'version=${_IMAGE_VERSION_1}'
+    - '-t'
+    - 'resolutte/php-fpm-7.3:latest'
+    - '-t'
+    - 'resolutte/php-fpm-7.3:${_IMAGE_VERSION_1}'
+    - '-f'
+    - 'php-fpm-7.3/Dockerfile'
+    - '.'
+
+  - id: "Build the image php-fpm-7.4"
+    name: 'gcr.io/cloud-builders/docker'
+    args:
+    - 'build'
+    - '--build-arg'
+    - 'version=${_IMAGE_VERSION_1}'
+    - '-t'
+    - 'resolutte/php-fpm-7.4:latest'
+    - '-t'
+    - 'resolutte/php-fpm-7.4:${_IMAGE_VERSION_1}'
+    - '-f'
+    - 'php-fpm-7.4/Dockerfile'
+    - '.'
+
+# Image Version
 substitutions:
-  _IMAGE_VERSION_1: '1.4.0'
+  _IMAGE_VERSION_1: '1.5.0'
 
 # Push the image to Dockerhub.
 images:
   - 'resolutte/php-fpm-5.6:latest'
   - 'resolutte/php-fpm-5.6:${_IMAGE_VERSION_1}'
+  - 'resolutte/php-fpm-7.0:latest'
+  - 'resolutte/php-fpm-7.0:${_IMAGE_VERSION_1}'
+  - 'resolutte/php-fpm-7.1:latest'
+  - 'resolutte/php-fpm-7.1:${_IMAGE_VERSION_1}'
   - 'resolutte/php-fpm-7.2:latest'
   - 'resolutte/php-fpm-7.2:${_IMAGE_VERSION_1}'
   - 'resolutte/php-fpm-7.3:latest'

@@ -1,6 +1,6 @@
 FROM debian:jessie
 
-LABEL maintainer="Eduardo Zinhani <ezinhani@gmail.com>"
+LABEL maintainer="Resolutte <suporte@resolutte.app>"
 
 ENV DEBIAN_FRONTEND noninteractive
 
