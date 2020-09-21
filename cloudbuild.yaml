@@ -2,10 +2,10 @@
 substitutions:
   _IMAGE_VERSION_56: '1.5.0'
   _IMAGE_VERSION_70: '1.5.0'
-  _IMAGE_VERSION_71: '1.5.0'
-  _IMAGE_VERSION_72: '1.5.0'
-  _IMAGE_VERSION_73: '1.5.0'
-  _IMAGE_VERSION_74: '1.6.0'
+#  _IMAGE_VERSION_71: '1.5.0'
+#  _IMAGE_VERSION_72: '1.5.0'
+#  _IMAGE_VERSION_73: '1.4.0'
+  _IMAGE_VERSION_74: '1.6.1'
 
 # Cloud Build
 steps:
@@ -54,47 +54,47 @@ steps:
     - 'php-fpm-7.0/Dockerfile'
     - '.'
 
-  - id: "Build the image php-fpm-7.1"
-    name: 'gcr.io/cloud-builders/docker'
-    args:
-    - 'build'
-    - '--build-arg'
-    - 'version=${_IMAGE_VERSION_71}'
-    - '-t'
-    - 'resolutte/php-fpm-7.1:latest'
-    - '-t'
-    - 'resolutte/php-fpm-7.1:${_IMAGE_VERSION_71}'
-    - '-f'
-    - 'php-fpm-7.1/Dockerfile'
-    - '.'
+#  - id: "Build the image php-fpm-7.1"
+#    name: 'gcr.io/cloud-builders/docker'
+#    args:
+#    - 'build'
+#    - '--build-arg'
+#    - 'version=${_IMAGE_VERSION_71}'
+#    - '-t'
+#    - 'resolutte/php-fpm-7.1:latest'
+#    - '-t'
+#    - 'resolutte/php-fpm-7.1:${_IMAGE_VERSION_71}'
+#    - '-f'
+#    - 'php-fpm-7.1/Dockerfile'
+#    - '.'
 
-  - id: "Build the image php-fpm-7.2"
-    name: 'gcr.io/cloud-builders/docker'
-    args:
-    - 'build'
-    - '--build-arg'
-    - 'version=${_IMAGE_VERSION_72}'
-    - '-t'
-    - 'resolutte/php-fpm-7.2:latest'
-    - '-t'
-    - 'resolutte/php-fpm-7.2:${_IMAGE_VERSION_72}'
-    - '-f'
-    - 'php-fpm-7.2/Dockerfile'
-    - '.'
+#  - id: "Build the image php-fpm-7.2"
+#    name: 'gcr.io/cloud-builders/docker'
+#    args:
+#    - 'build'
+#    - '--build-arg'
+#    - 'version=${_IMAGE_VERSION_72}'
+#    - '-t'
+#    - 'resolutte/php-fpm-7.2:latest'
+#    - '-t'
+#    - 'resolutte/php-fpm-7.2:${_IMAGE_VERSION_72}'
+#    - '-f'
+#    - 'php-fpm-7.2/Dockerfile'
+#    - '.'
 
-  - id: "Build the image php-fpm-7.3"
-    name: 'gcr.io/cloud-builders/docker'
-    args:
-    - 'build'
-    - '--build-arg'
-    - 'version=${_IMAGE_VERSION_73}'
-    - '-t'
-    - 'resolutte/php-fpm-7.3:latest'
-    - '-t'
-    - 'resolutte/php-fpm-7.3:${_IMAGE_VERSION_73}'
-    - '-f'
-    - 'php-fpm-7.3/Dockerfile'
-    - '.'
+#  - id: "Build the image php-fpm-7.3"
+#    name: 'gcr.io/cloud-builders/docker'
+#    args:
+#    - 'build'
+#    - '--build-arg'
+#    - 'version=${_IMAGE_VERSION_73}'
+#    - '-t'
+#    - 'resolutte/php-fpm-7.3:latest'
+#    - '-t'
+#    - 'resolutte/php-fpm-7.3:${_IMAGE_VERSION_73}'
+#    - '-f'
+#    - 'php-fpm-7.3/Dockerfile'
+#    - '.'
 
   - id: "Build the image php-fpm-7.4"
     name: 'gcr.io/cloud-builders/docker'
@@ -116,11 +116,11 @@ images:
   - 'resolutte/php-fpm-5.6:${_IMAGE_VERSION_56}'
   - 'resolutte/php-fpm-7.0:latest'
   - 'resolutte/php-fpm-7.0:${_IMAGE_VERSION_70}'
-  - 'resolutte/php-fpm-7.1:latest'
-  - 'resolutte/php-fpm-7.1:${_IMAGE_VERSION_71}'
-  - 'resolutte/php-fpm-7.2:latest'
-  - 'resolutte/php-fpm-7.2:${_IMAGE_VERSION_72}'
-  - 'resolutte/php-fpm-7.3:latest'
-  - 'resolutte/php-fpm-7.3:${_IMAGE_VERSION_73}'
+#  - 'resolutte/php-fpm-7.1:latest'
+#  - 'resolutte/php-fpm-7.1:${_IMAGE_VERSION_71}'
+#  - 'resolutte/php-fpm-7.2:latest'
+#  - 'resolutte/php-fpm-7.2:${_IMAGE_VERSION_72}'
+#  - 'resolutte/php-fpm-7.3:latest'
+#  - 'resolutte/php-fpm-7.3:${_IMAGE_VERSION_73}'
   - 'resolutte/php-fpm-7.4:latest'
   - 'resolutte/php-fpm-7.4:${_IMAGE_VERSION_74}'
