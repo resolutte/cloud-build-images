@@ -1,3 +1,13 @@
+# Image Version
+substitutions:
+  _IMAGE_VERSION_56: '1.5.0'
+  _IMAGE_VERSION_70: '1.5.0'
+  _IMAGE_VERSION_71: '1.5.0'
+  _IMAGE_VERSION_72: '1.5.0'
+  _IMAGE_VERSION_73: '1.5.0'
+  _IMAGE_VERSION_74: '1.6.0'
+
+# Cloud Build
 steps:
 
   - id: "Decrypt Password"
@@ -5,8 +15,8 @@ steps:
     args:
       - "kms"
       - "decrypt"
-      - "--ciphertext-file=secrets.enc"
-      - "--plaintext-file=secrets.env"
+      - "--ciphertext-file=./credentials/secrets.enc"
+      - "--plaintext-file=./credentials/secrets.env"
       - "--location=global"
       - "--keyring=Resolutte"
       - "--key=docker-hub"
@@ -14,18 +24,18 @@ steps:
   - id: "Login to provide credentials for the push"
     name: "gcr.io/cloud-builders/docker"
     entrypoint: 'bash'
-    args: ['-c','cat secrets.env | docker login --username resolutte --password-stdin']
+    args: ['-c','cat ./credentials/secrets.env | docker login --username resolutte --password-stdin']
 
   - id: "Build the image php-fpm-5.6"
     name: 'gcr.io/cloud-builders/docker'
     args:
     - 'build'
     - '--build-arg'
-    - 'version=${_IMAGE_VERSION_1}'
+    - 'version=${_IMAGE_VERSION_56}'
     - '-t'
     - 'resolutte/php-fpm-5.6:latest'
     - '-t'
-    - 'resolutte/php-fpm-5.6:${_IMAGE_VERSION_1}'
+    - 'resolutte/php-fpm-5.6:${_IMAGE_VERSION_56}'
     - '-f'
     - 'php-fpm-5.6/Dockerfile'
     - '.'
@@ -35,11 +45,11 @@ steps:
     args:
     - 'build'
     - '--build-arg'
-    - 'version=${_IMAGE_VERSION_1}'
+    - 'version=${_IMAGE_VERSION_70}'
     - '-t'
     - 'resolutte/php-fpm-7.0:latest'
     - '-t'
-    - 'resolutte/php-fpm-7.0:${_IMAGE_VERSION_1}'
+    - 'resolutte/php-fpm-7.0:${_IMAGE_VERSION_70}'
     - '-f'
     - 'php-fpm-7.0/Dockerfile'
     - '.'
@@ -49,11 +59,11 @@ steps:
     args:
     - 'build'
     - '--build-arg'
-    - 'version=${_IMAGE_VERSION_1}'
+    - 'version=${_IMAGE_VERSION_71}'
     - '-t'
     - 'resolutte/php-fpm-7.1:latest'
     - '-t'
-    - 'resolutte/php-fpm-7.1:${_IMAGE_VERSION_1}'
+    - 'resolutte/php-fpm-7.1:${_IMAGE_VERSION_71}'
     - '-f'
     - 'php-fpm-7.1/Dockerfile'
     - '.'
@@ -63,11 +73,11 @@ steps:
     args:
     - 'build'
     - '--build-arg'
-    - 'version=${_IMAGE_VERSION_1}'
+    - 'version=${_IMAGE_VERSION_72}'
     - '-t'
     - 'resolutte/php-fpm-7.2:latest'
     - '-t'
-    - 'resolutte/php-fpm-7.2:${_IMAGE_VERSION_1}'
+    - 'resolutte/php-fpm-7.2:${_IMAGE_VERSION_72}'
     - '-f'
     - 'php-fpm-7.2/Dockerfile'
     - '.'
@@ -77,11 +87,11 @@ steps:
     args:
     - 'build'
     - '--build-arg'
-    - 'version=${_IMAGE_VERSION_1}'
+    - 'version=${_IMAGE_VERSION_73}'
     - '-t'
     - 'resolutte/php-fpm-7.3:latest'
     - '-t'
-    - 'resolutte/php-fpm-7.3:${_IMAGE_VERSION_1}'
+    - 'resolutte/php-fpm-7.3:${_IMAGE_VERSION_73}'
     - '-f'
     - 'php-fpm-7.3/Dockerfile'
     - '.'
@@ -91,30 +101,26 @@ steps:
     args:
     - 'build'
     - '--build-arg'
-    - 'version=${_IMAGE_VERSION_1}'
+    - 'version=${_IMAGE_VERSION_74}'
     - '-t'
     - 'resolutte/php-fpm-7.4:latest'
     - '-t'
-    - 'resolutte/php-fpm-7.4:${_IMAGE_VERSION_1}'
+    - 'resolutte/php-fpm-7.4:${_IMAGE_VERSION_74}'
     - '-f'
     - 'php-fpm-7.4/Dockerfile'
     - '.'
 
-# Image Version
-substitutions:
-  _IMAGE_VERSION_1: '1.5.0'
-
 # Push the image to Dockerhub.
 images:
   - 'resolutte/php-fpm-5.6:latest'
-  - 'resolutte/php-fpm-5.6:${_IMAGE_VERSION_1}'
+  - 'resolutte/php-fpm-5.6:${_IMAGE_VERSION_56}'
   - 'resolutte/php-fpm-7.0:latest'
-  - 'resolutte/php-fpm-7.0:${_IMAGE_VERSION_1}'
+  - 'resolutte/php-fpm-7.0:${_IMAGE_VERSION_70}'
   - 'resolutte/php-fpm-7.1:latest'
-  - 'resolutte/php-fpm-7.1:${_IMAGE_VERSION_1}'
+  - 'resolutte/php-fpm-7.1:${_IMAGE_VERSION_71}'
   - 'resolutte/php-fpm-7.2:latest'
-  - 'resolutte/php-fpm-7.2:${_IMAGE_VERSION_1}'
+  - 'resolutte/php-fpm-7.2:${_IMAGE_VERSION_72}'
   - 'resolutte/php-fpm-7.3:latest'
-  - 'resolutte/php-fpm-7.3:${_IMAGE_VERSION_1}'
+  - 'resolutte/php-fpm-7.3:${_IMAGE_VERSION_73}'
   - 'resolutte/php-fpm-7.4:latest'
-  - 'resolutte/php-fpm-7.4:${_IMAGE_VERSION_1}'
+  - 'resolutte/php-fpm-7.4:${_IMAGE_VERSION_74}'
