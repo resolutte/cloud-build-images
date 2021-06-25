@@ -32,11 +32,7 @@ RUN set -eux; \
             --with-webp \
             --with-freetype; \
         docker-php-ext-install gd; \
-        php -r 'var_dump(gd_info());' \
-        libzip-dev zip unzip && \
-        docker-php-ext-configure zip; \
-        docker-php-ext-install zip && \
-        php -m | grep -q 'zip'
+        php -r 'var_dump(gd_info());'
 
 RUN buildDeps='pkg-config' \
     && set -xe \
