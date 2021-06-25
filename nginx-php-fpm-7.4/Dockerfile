@@ -2,7 +2,6 @@ FROM php:7.4-fpm
 
 LABEL maintainer="Resolutte <suporte@resolutte.app>"
 
-
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN set -eux; \
@@ -33,7 +32,11 @@ RUN set -eux; \
             --with-webp \
             --with-freetype; \
         docker-php-ext-install gd; \
-        php -r 'var_dump(gd_info());'
+        php -r 'var_dump(gd_info());' \
+        libzip-dev zip unzip && \
+        docker-php-ext-configure zip; \
+        docker-php-ext-install zip && \
+        php -m | grep -q 'zip'
 
 RUN buildDeps='pkg-config' \
     && set -xe \

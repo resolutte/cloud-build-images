@@ -15,6 +15,10 @@ git:
 	git commit -m "..."
 	git push origin master
 
+.PHONY: Deploy
+git-p:
+	git push origin master
+
 .PHONY: Deleta cache do git
 clear-git:
 	git rm -rf --cached .
