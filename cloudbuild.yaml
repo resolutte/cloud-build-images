@@ -120,7 +120,7 @@ steps:
     - '-t'
     - 'resolutte/nginx-php-fpm-7.4:latest'
     - '-t'
-    - 'resolutte/nginx-php-fpm-7.4:${_PHP_FPM_IMAGE_VERSION_74}'
+    - 'resolutte/nginx-php-fpm-7.4:${_NGINX_PHP_FPM_IMAGE_VERSION_74}'
     - '-f'
     - 'nginx-php-fpm-7.4/Dockerfile'
     - '.'
