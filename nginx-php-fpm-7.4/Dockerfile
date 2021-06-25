@@ -10,10 +10,6 @@ RUN set -eux; \
     apt-get install -y --no-install-recommends \
         nano \
         curl \
-        wget \
-        less \
-        cron \
-        git \
         libmemcached-dev \
         libz-dev \
         libpq-dev \
@@ -24,21 +20,18 @@ RUN set -eux; \
         libwebp-dev \
         libmcrypt-dev \
         libonig-dev; \
-        apt-utils \
-        pecl channel-update pecl.php.net && \
-        docker-php-ext-install pdo_mysql; \
-        docker-php-ext-install pdo_pgsql; \
-        docker-php-ext-configure gd \
-            --prefix=/usr \
-            --with-jpeg \
-            --with-webp \
-            --with-freetype; \
-        docker-php-ext-install gd; \
-        php -r 'var_dump(gd_info());' \
-        libzip-dev zip unzip && \
-        docker-php-ext-configure zip; \
-        docker-php-ext-install zip && \
-        php -m | grep -q 'zip'
+    rm -rf /var/lib/apt/lists/*
+
+RUN set -eux; \
+    docker-php-ext-install pdo_mysql; \
+    docker-php-ext-install pdo_pgsql; \
+    docker-php-ext-configure gd \
+        --prefix=/usr \
+        --with-jpeg \
+        --with-webp \
+        --with-freetype; \
+    docker-php-ext-install gd; \
+    php -r 'var_dump(gd_info());'
 
 RUN buildDeps='pkg-config' \
     && set -xe \
