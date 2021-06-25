@@ -10,6 +10,10 @@ RUN set -eux; \
     apt-get install -y --no-install-recommends \
         nano \
         curl \
+        wget \
+        gnupg2 \
+        apt-transport-https \
+        ca-certificates \
         libmemcached-dev \
         libz-dev \
         libpq-dev \
@@ -20,23 +24,20 @@ RUN set -eux; \
         libwebp-dev \
         libmcrypt-dev \
         libonig-dev; \
-    rm -rf /var/lib/apt/lists/*
-
-RUN set -eux; \
-    docker-php-ext-install pdo_mysql; \
-    docker-php-ext-install pdo_pgsql; \
-    docker-php-ext-configure gd \
-        --prefix=/usr \
-        --with-jpeg \
-        --with-webp \
-        --with-freetype; \
-    docker-php-ext-install gd; \
-    php -r 'var_dump(gd_info());'
+        docker-php-ext-install pdo_mysql; \
+        docker-php-ext-install pdo_pgsql; \
+        docker-php-ext-configure gd \
+            --prefix=/usr \
+            --with-jpeg \
+            --with-webp \
+            --with-freetype; \
+        docker-php-ext-install gd; \
+        php -r 'var_dump(gd_info());'
 
 RUN buildDeps='pkg-config' \
     && set -xe \
     && apt-get update \
-    && apt-get install --no-install-recommends $buildDeps --no-install-suggests -y gnupg2 wget apt-transport-https ca-certificates \
+    && apt-get install --no-install-recommends $buildDeps --no-install-suggests -y \
     && \
     NGINX_GPGKEY=573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62; \
     found=''; \
@@ -54,4 +55,10 @@ RUN buildDeps='pkg-config' \
     && wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg \
     && echo "deb https://packages.sury.org/php/ buster main" > /etc/apt/sources.list.d/php.list \
     && apt-get update \
-    && apt-get install --no-install-recommends --no-install-suggests -q -y nginx
+    && apt-get install --no-install-recommends --no-install-suggests -q -y \
+        nginx \
+    && rm -rf /tmp/pear \
+    && apt-get purge -y --auto-remove $buildDeps \
+    && apt-get clean \
+    && apt-get autoremove \
+    && rm -rf /var/lib/apt/lists/*
